@@ -6,3 +6,10 @@ generator client {
 datasource db {
   provider = "sqlite"
 }
+
+model TransactionCategory {
+  id       Int    @id @default(autoincrement())
+  name     String
+  parentId Int
+  userId   Int
+}
