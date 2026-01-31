@@ -9,5 +9,6 @@ const transactionCategoryController = new TransactionCategoryController(
 );
 
 router.post("/", transactionCategoryController.createTransactionCategory);
+router.get("/:id", transactionCategoryController.getTransactionCategory);
 
 export default router;
