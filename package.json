@@ -8,7 +8,7 @@
     "dev": "concurrently \"npx tsoa spec -w\" \"npx tsoa routes -w\" \"tsx watch src/index.ts\"",
     "generate": "prisma generate",
     "migrate": "prisma migrate dev",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
   },
   "keywords": [],
   "author": "",
