@@ -1,19 +1,14 @@
-import { TransactionCategoryService } from "../services/transaction-category.service";
-import { Body, Controller, Get, Path, Post, Route, Tags } from "@tsoa/runtime";
-import { TransactionCategoryCreateInput } from "../../generated/prisma/models/TransactionCategory";
+import { Body, Controller, Get, Path, Post, Route, Tags } from '@tsoa/runtime';
 
-interface GetCategoryParams {
-  id: string;
-}
+import { TransactionCategoryCreateInput } from '../../generated/prisma/models/TransactionCategory';
+import { TransactionCategoryService } from '../services/transaction-category.service';
 
-@Route("categories")
-@Tags("TransactionCategory")
+@Route('categories')
+@Tags('TransactionCategory')
 export class TransactionCategoryController extends Controller {
-  @Get("{id}")
+  @Get('{id}')
   public async getTransactionGategory(@Path() id: number) {
-    const transactionCategory = await new TransactionCategoryService().getById(
-      id,
-    );
+    const transactionCategory = await new TransactionCategoryService().getById(id);
 
     if (!transactionCategory) {
       this.setStatus(404);
@@ -24,12 +19,8 @@ export class TransactionCategoryController extends Controller {
   }
 
   @Post()
-  public async createTransactionCategory(
-    @Body() body: TransactionCategoryCreateInput,
-  ) {
-    const transactionCategory = await new TransactionCategoryService().create(
-      body,
-    );
+  public async createTransactionCategory(@Body() body: TransactionCategoryCreateInput) {
+    const transactionCategory = await new TransactionCategoryService().create(body);
 
     return transactionCategory;
   }
