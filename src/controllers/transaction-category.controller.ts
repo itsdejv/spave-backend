@@ -1,51 +1,36 @@
-import { Request, Response } from "express";
-import { TransactionCategoryCreateInput } from "../../generated/prisma/models/TransactionCategory";
 import { TransactionCategoryService } from "../services/transaction-category.service";
+import { Body, Controller, Get, Path, Post, Route, Tags } from "@tsoa/runtime";
+import { TransactionCategoryCreateInput } from "../../generated/prisma/models/TransactionCategory";
 
 interface GetCategoryParams {
   id: string;
 }
 
-export class TransactionCategoryController {
-  constructor(
-    private readonly transactionCategoryService: TransactionCategoryService,
-  ) {}
-
-  getTransactionCategory = async (
-    req: Request<GetCategoryParams>,
-    res: Response,
-  ) => {
-    const id = Number(req.params.id);
-
-    if (Number.isNaN(id)) {
-      return res.status(400).json({
-        error: "Bad Request",
-        message: "Invalid ID format. Expected a number.",
-      });
-    }
-
-    const transactionCategory = await this.transactionCategoryService.getById(
-      Number(req.params.id),
+@Route("categories")
+@Tags("TransactionCategory")
+export class TransactionCategoryController extends Controller {
+  @Get("{id}")
+  public async getTransactionGategory(@Path() id: number) {
+    const transactionCategory = await new TransactionCategoryService().getById(
+      id,
     );
 
     if (!transactionCategory) {
-      return res.status(404).json({
-        error: "Not Found",
-        message: "Transaction category not found.",
-      });
+      this.setStatus(404);
+      return;
     }
 
-    return res.status(200).json({ transactionCategory });
-  };
+    return transactionCategory;
+  }
 
-  createTransactionCategory = async (
-    req: Request<{}, {}, TransactionCategoryCreateInput>,
-    res: Response,
-  ) => {
-    const newTransactionCategory = await this.transactionCategoryService.create(
-      req.body,
+  @Post()
+  public async createTransactionCategory(
+    @Body() body: TransactionCategoryCreateInput,
+  ) {
+    const transactionCategory = await new TransactionCategoryService().create(
+      body,
     );
 
-    return res.status(201).json(newTransactionCategory);
-  };
+    return transactionCategory;
+  }
 }

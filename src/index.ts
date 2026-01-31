@@ -1,12 +1,12 @@
 import "dotenv/config";
 import express from "express";
-import transactionCategoryRouter from "./routes/transaction-category.router";
+import { RegisterRoutes } from "./generated/routes";
 
 const app = express();
 
 app.use(express.json());
 
-app.use("/api/categories", transactionCategoryRouter);
+RegisterRoutes(app);
 
 app.use((err: any, req: any, res: any, next: any) => {
   console.error("DEBUG:", err.message);
