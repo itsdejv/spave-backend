@@ -1,14 +1,14 @@
 import { TransactionCategoryCreateInput } from "../../generated/prisma/models/TransactionCategory";
 import prisma from "../client";
 
-export const createTransactionCategory = (
-  data: TransactionCategoryCreateInput,
-) => {
-  return prisma.transactionCategory.create({
-    data: {
-      userId: data.userId,
-      name: data.name,
-      parentId: data.parentId,
-    },
-  });
-};
+export class TransactionCategoryService {
+  create(requestBody: TransactionCategoryCreateInput) {
+    return prisma.transactionCategory.create({
+      data: {
+        userId: requestBody.userId,
+        name: requestBody.name,
+        parentId: requestBody.parentId,
+      },
+    });
+  }
+}

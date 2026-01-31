@@ -1,8 +1,13 @@
 import { Router } from "express";
-import { saveTransactionCategory } from "../controllers/transaction-category.controller";
+import { TransactionCategoryService } from "../services/transaction-category.service";
+import { TransactionCategoryController } from "../controllers/transaction-category.controller";
 
 const router = Router();
+const transactionCategoryService = new TransactionCategoryService();
+const transactionCategoryController = new TransactionCategoryController(
+  transactionCategoryService,
+);
 
-router.post("/", saveTransactionCategory);
+router.post("/", transactionCategoryController.createTransactionCategory);
 
 export default router;

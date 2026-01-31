@@ -1,25 +1,20 @@
 import { Request, Response } from "express";
 import { TransactionCategoryCreateInput } from "../../generated/prisma/models/TransactionCategory";
-import prisma from "../client";
+import { TransactionCategoryService } from "../services/transaction-category.service";
 
-export const saveTransactionCategory = async (
-  req: Request<{}, {}, TransactionCategoryCreateInput>,
-  res: Response,
-) => {
-  const { name, parentId, userId } = req.body;
+export class TransactionCategoryController {
+  constructor(
+    private readonly transactionCategoryService: TransactionCategoryService,
+  ) {}
 
-  try {
-    const newTransactionCategory = await prisma.transactionCategory.create({
-      data: {
-        name,
-        parentId,
-        userId,
-      },
-    });
+  createTransactionCategory = async (
+    req: Request<{}, {}, TransactionCategoryCreateInput>,
+    res: Response,
+  ) => {
+    const newTransactionCategory = await this.transactionCategoryService.create(
+      req.body,
+    );
 
-    res.status(201).json(newTransactionCategory);
-  } catch (e) {
-    console.log(e);
-    res.status(500).json({ error: "Error while saving." });
-  }
-};
+    return res.status(201).json(newTransactionCategory);
+  };
+}
