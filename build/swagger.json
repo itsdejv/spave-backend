@@ -6,7 +6,29 @@
 		"parameters": {},
 		"requestBodies": {},
 		"responses": {},
-		"schemas": {},
+		"schemas": {
+			"TransactionCategoryCreateInput": {
+				"properties": {
+					"userId": {
+						"type": "number",
+						"format": "double"
+					},
+					"parentId": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"userId",
+					"parentId",
+					"name"
+				],
+				"type": "object"
+			}
+		},
 		"securitySchemes": {}
 	},
 	"info": {
@@ -28,35 +50,27 @@
 							"application/json": {
 								"schema": {
 									"properties": {
-										"transactionCategory": {
-											"properties": {
-												"userId": {
-													"type": "number",
-													"format": "double"
-												},
-												"parentId": {
-													"type": "number",
-													"format": "double"
-												},
-												"name": {
-													"type": "string"
-												},
-												"id": {
-													"type": "number",
-													"format": "double"
-												}
-											},
-											"required": [
-												"userId",
-												"parentId",
-												"name",
-												"id"
-											],
-											"type": "object"
+										"userId": {
+											"type": "number",
+											"format": "double"
+										},
+										"parentId": {
+											"type": "number",
+											"format": "double"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
 										}
 									},
 									"required": [
-										"transactionCategory"
+										"userId",
+										"parentId",
+										"name",
+										"id"
 									],
 									"type": "object"
 								}
@@ -79,6 +93,61 @@
 						}
 					}
 				]
+			}
+		},
+		"/categories": {
+			"post": {
+				"operationId": "CreateTransactionCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"userId": {
+											"type": "number",
+											"format": "double"
+										},
+										"parentId": {
+											"type": "number",
+											"format": "double"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"userId",
+										"parentId",
+										"name",
+										"id"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TransactionCategory"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TransactionCategoryCreateInput"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

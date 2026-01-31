@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "tsoa-gen": "npx tsoa spec && npx tsoa routes",
+    "dev": "concurrently \"npx tsoa spec -w\" \"npx tsoa routes -w\" \"tsx watch src/index.ts\"",
     "generate": "prisma generate",
     "migrate": "prisma migrate dev",
     "studio": "prisma studio"
@@ -17,6 +18,7 @@
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^25.0.9",
     "@types/swagger-ui-express": "^4.1.8",
+    "concurrently": "^9.2.1",
     "prettier": "^3.8.0",
     "prisma": "^7.2.0",
     "tsx": "^4.21.0",
