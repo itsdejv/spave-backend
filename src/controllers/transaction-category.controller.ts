@@ -1,14 +1,24 @@
-import { Body, Controller, Get, Path, Post, Route, Tags } from '@tsoa/runtime';
+import { Body, Controller, Get, Path, Post, Request, Route, Tags } from '@tsoa/runtime';
 
-import { TransactionCategoryCreateInput } from '../../generated/prisma/models/TransactionCategory';
 import { TransactionCategoryService } from '../services/transaction-category.service';
+import { AuthenticatedRequest } from '../types/express';
 
-@Route('categories')
+export interface CreateCategoryRequest {
+  name: string;
+  parentId?: number | null;
+}
+
+@Route('transaction-categories')
 @Tags('TransactionCategory')
 export class TransactionCategoryController extends Controller {
   @Get('{id}')
-  public async getTransactionGategory(@Path() id: number) {
-    const transactionCategory = await new TransactionCategoryService().getById(id);
+  public async getTransactionGategory(
+    @Path() id: number,
+    @Request() request: AuthenticatedRequest,
+  ) {
+    const userId = request.user.id;
+
+    const transactionCategory = await new TransactionCategoryService().getById(id, userId);
 
     if (!transactionCategory) {
       this.setStatus(404);
@@ -19,9 +29,18 @@ export class TransactionCategoryController extends Controller {
   }
 
   @Post()
-  public async createTransactionCategory(@Body() body: TransactionCategoryCreateInput) {
-    const transactionCategory = await new TransactionCategoryService().create(body);
+  public async createTransactionCategory(
+    @Body() body: CreateCategoryRequest,
+    @Request() request: AuthenticatedRequest,
+  ) {
+    const { name, parentId } = body;
 
-    return transactionCategory;
+    const userId = request.user.id;
+
+    return new TransactionCategoryService().create({
+      name,
+      parentId,
+      userId,
+    });
   }
 }

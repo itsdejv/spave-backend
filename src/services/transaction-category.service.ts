@@ -1,11 +1,12 @@
-import { TransactionCategoryCreateInput } from "../../generated/prisma/models/TransactionCategory";
-import prisma from "../client";
+import { TransactionCategoryCreateInput } from '../../generated/prisma/models/TransactionCategory';
+import prisma from '../client';
 
 export class TransactionCategoryService {
-  getById(id: number) {
+  getById(id: number, userId: string) {
     return prisma.transactionCategory.findUnique({
       where: {
         id,
+        userId,
       },
     });
   }

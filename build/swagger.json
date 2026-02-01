@@ -7,26 +7,43 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"TransactionCategoryCreateInput": {
+			"CreateTransactionRequest": {
 				"properties": {
-					"userId": {
-						"type": "number",
-						"format": "double"
-					},
-					"parentId": {
-						"type": "number",
-						"format": "double"
-					},
 					"name": {
 						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"transactionCategoryId": {
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
-					"userId",
-					"parentId",
+					"name",
+					"amount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateCategoryRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"parentId": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					}
+				},
+				"required": [
 					"name"
 				],
-				"type": "object"
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -40,9 +57,9 @@
 		"contact": {}
 	},
 	"paths": {
-		"/categories/{id}": {
+		"/transactions/{id}": {
 			"get": {
-				"operationId": "GetTransactionGategory",
+				"operationId": "GetTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -50,13 +67,12 @@
 							"application/json": {
 								"schema": {
 									"properties": {
-										"userId": {
-											"type": "number",
-											"format": "double"
-										},
 										"parentId": {
 											"type": "number",
 											"format": "double"
+										},
+										"userId": {
+											"type": "string"
 										},
 										"name": {
 											"type": "string"
@@ -67,8 +83,125 @@
 										}
 									},
 									"required": [
-										"userId",
 										"parentId",
+										"userId",
+										"name",
+										"id"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Transactions"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/transactions": {
+			"post": {
+				"operationId": "CreateTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"neccessary": {
+											"type": "boolean"
+										},
+										"transactionCategoryId": {
+											"type": "number",
+											"format": "double"
+										},
+										"amount": {
+											"type": "number",
+											"format": "double"
+										},
+										"userId": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"neccessary",
+										"transactionCategoryId",
+										"amount",
+										"userId",
+										"name",
+										"id"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Transactions"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateTransactionRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/transaction-categories/{id}": {
+			"get": {
+				"operationId": "GetTransactionGategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"parentId": {
+											"type": "number",
+											"format": "double"
+										},
+										"userId": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"parentId",
+										"userId",
 										"name",
 										"id"
 									],
@@ -95,7 +228,7 @@
 				]
 			}
 		},
-		"/categories": {
+		"/transaction-categories": {
 			"post": {
 				"operationId": "CreateTransactionCategory",
 				"responses": {
@@ -105,13 +238,12 @@
 							"application/json": {
 								"schema": {
 									"properties": {
-										"userId": {
-											"type": "number",
-											"format": "double"
-										},
 										"parentId": {
 											"type": "number",
 											"format": "double"
+										},
+										"userId": {
+											"type": "string"
 										},
 										"name": {
 											"type": "string"
@@ -122,8 +254,8 @@
 										}
 									},
 									"required": [
-										"userId",
 										"parentId",
+										"userId",
 										"name",
 										"id"
 									],
@@ -143,7 +275,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/TransactionCategoryCreateInput"
+								"$ref": "#/components/schemas/CreateCategoryRequest"
 							}
 						}
 					}

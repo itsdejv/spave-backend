@@ -8,8 +8,19 @@ datasource db {
 }
 
 model TransactionCategory {
-  id       Int    @id @default(autoincrement())
-  name     String
-  parentId Int
-  userId   Int
+  id        Int           @id @default(autoincrement())
+  name      String
+  userId    String
+  parentId  Int?
+  spendings Transaction[]
+}
+
+model Transaction {
+  id                    Int                  @id @default(autoincrement())
+  name                  String
+  amount                Float
+  userId                String
+  transactionCategoryId Int?
+  transactionCategory   TransactionCategory? @relation(fields: [transactionCategoryId], references: [id])
+  neccessary            Boolean?             @default(true)
 }

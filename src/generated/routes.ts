@@ -4,6 +4,8 @@
 import type { TsoaRoute } from '@tsoa/runtime';
 import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { TransactionController } from './../controllers/transaction.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { TransactionCategoryController } from './../controllers/transaction-category.controller';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
@@ -12,9 +14,23 @@ import type { Request as ExRequest, Response as ExResponse, RequestHandler, Rout
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "TransactionCategoryCreateInput": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"userId":{"dataType":"double","required":true},"parentId":{"dataType":"double","required":true},"name":{"dataType":"string","required":true}},"validators":{}},
+    "CreateTransactionRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+            "amount": {"dataType":"double","required":true},
+            "transactionCategoryId": {"dataType":"double"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "CreateCategoryRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+            "parentId": {"dataType":"union","subSchemas":[{"dataType":"double"},{"dataType":"enum","enums":[null]}]},
+        },
+        "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
@@ -34,10 +50,72 @@ export function RegisterRoutes(app: Router) {
 
 
     
-        const argsTransactionCategoryController_getTransactionGategory: Record<string, TsoaRoute.ParameterSchema> = {
+        const argsTransactionController_getTransaction: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
-        app.get('/api/categories/:id',
+        app.get('/api/transactions/:id',
+            ...(fetchMiddlewares<RequestHandler>(TransactionController)),
+            ...(fetchMiddlewares<RequestHandler>(TransactionController.prototype.getTransaction)),
+
+            async function TransactionController_getTransaction(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsTransactionController_getTransaction, request, response });
+
+                const controller = new TransactionController();
+
+              await templateService.apiHandler({
+                methodName: 'getTransaction',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsTransactionController_createTransaction: Record<string, TsoaRoute.ParameterSchema> = {
+                body: {"in":"body","name":"body","required":true,"ref":"CreateTransactionRequest"},
+                request: {"in":"request","name":"request","required":true,"dataType":"object"},
+        };
+        app.post('/api/transactions',
+            ...(fetchMiddlewares<RequestHandler>(TransactionController)),
+            ...(fetchMiddlewares<RequestHandler>(TransactionController.prototype.createTransaction)),
+
+            async function TransactionController_createTransaction(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsTransactionController_createTransaction, request, response });
+
+                const controller = new TransactionController();
+
+              await templateService.apiHandler({
+                methodName: 'createTransaction',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsTransactionCategoryController_getTransactionGategory: Record<string, TsoaRoute.ParameterSchema> = {
+                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                request: {"in":"request","name":"request","required":true,"dataType":"object"},
+        };
+        app.get('/api/transaction-categories/:id',
             ...(fetchMiddlewares<RequestHandler>(TransactionCategoryController)),
             ...(fetchMiddlewares<RequestHandler>(TransactionCategoryController.prototype.getTransactionGategory)),
 
@@ -65,9 +143,10 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsTransactionCategoryController_createTransactionCategory: Record<string, TsoaRoute.ParameterSchema> = {
-                body: {"in":"body","name":"body","required":true,"ref":"TransactionCategoryCreateInput"},
+                body: {"in":"body","name":"body","required":true,"ref":"CreateCategoryRequest"},
+                request: {"in":"request","name":"request","required":true,"dataType":"object"},
         };
-        app.post('/api/categories',
+        app.post('/api/transaction-categories',
             ...(fetchMiddlewares<RequestHandler>(TransactionCategoryController)),
             ...(fetchMiddlewares<RequestHandler>(TransactionCategoryController.prototype.createTransactionCategory)),
 
