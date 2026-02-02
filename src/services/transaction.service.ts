@@ -2,6 +2,10 @@ import { TransactionCreateInput } from '../../generated/prisma/models/Transactio
 import prisma from '../client';
 
 export class TransactionService {
+  findAll(userId: string) {
+    return prisma.transactionCategory.findMany({ where: { userId } });
+  }
+
   getById(id: number, userId: string) {
     return prisma.transactionCategory.findFirst({ where: { id, userId } });
   }

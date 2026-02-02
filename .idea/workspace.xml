@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96b1112e-1d6f-4f96-a99b-10e6a6d0ff59" name="Changes" comment="" />
+    <list default="true" id="96b1112e-1d6f-4f96-a99b-10e6a6d0ff59" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/swagger.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/transaction-category.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/transaction-category.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/transaction.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/transaction.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/transaction-category.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/transaction-category.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/transaction.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/transaction.service.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +21,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -19,12 +29,12 @@
     &quot;assignee&quot;: &quot;itsdejv&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:itsdejv/work-tracking-express-backend.git&quot;,
-    &quot;accountId&quot;: &quot;0954dc18-0b83-44e3-bf12-08b31fd507c5&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:itsdejv/spave-backend.git",
+    "accountId": "0954dc18-0b83-44e3-bf12-08b31fd507c5"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -90,11 +100,23 @@
       <workItem from="1768895751648" duration="597000" />
       <workItem from="1768904077726" duration="598000" />
       <workItem from="1768931649168" duration="5096000" />
+      <workItem from="1770020765633" duration="7905000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

@@ -7,20 +7,36 @@ datasource db {
   provider = "sqlite"
 }
 
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
 model TransactionCategory {
-  id        Int           @id @default(autoincrement())
-  name      String
-  userId    String
-  parentId  Int?
-  spendings Transaction[]
+  id           Int                   @id @default(autoincrement())
+  name         String
+  userId       String
+  parentId     Int?
+  parent       TransactionCategory?  @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children     TransactionCategory[] @relation("CategoryToCategory")
+  transactions Transaction[]
+  color        String?
+  icon         String?
 }
 
 model Transaction {
-  id                    Int                  @id @default(autoincrement())
-  name                  String
-  amount                Float
-  userId                String
+  id        Int             @id @default(autoincrement())
+  name      String
+  amount    Float
+  userId    String
+  type      TransactionType @default(EXPENSE)
+  date      DateTime        @default(now())
+  createdAt DateTime        @default(now())
+  note      String?
+
   transactionCategoryId Int?
   transactionCategory   TransactionCategory? @relation(fields: [transactionCategoryId], references: [id])
-  neccessary            Boolean?             @default(true)
+
+  necessary Boolean @default(false)
 }
